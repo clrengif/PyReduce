@@ -631,7 +631,7 @@ def wave(step_args, settings, wave_master, wave_init):
 
 
 @pytest.fixture
-def spec(step_args, settings, files, bias, orders, normflat, curvature, mask):
+def spec(step_args, settings, files, bias, orders, normflat, curvature, scatter, mask):
     """Load or create science spectrum
 
     Returns
@@ -652,6 +652,6 @@ def spec(step_args, settings, files, bias, orders, normflat, curvature, mask):
     except FileNotFoundError:
         files = files[name][:1]
         heads, specs, sigmas, column_ranges = step.run(
-            files, bias, orders, normflat, curvature, mask
+            files, bias, orders, normflat, curvature, scatter, mask
         )
     return specs[0], sigmas[0]

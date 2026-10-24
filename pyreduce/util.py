@@ -419,7 +419,7 @@ def gaussfit_linear(x, y):
     weights = y
 
     d = np.log(y)
-    G = np.ones((x.size, 3), dtype=np.float)
+    G = np.ones((x.size, 3), dtype=float)
     G[:, 0] = x ** 2
     G[:, 1] = x
 

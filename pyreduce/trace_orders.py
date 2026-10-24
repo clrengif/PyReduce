@@ -11,9 +11,9 @@ from itertools import combinations
 import matplotlib.pyplot as plt
 import numpy as np
 from numpy.polynomial.polynomial import Polynomial
-from scipy.ndimage import label, morphology
+from scipy.ndimage import binary_closing, binary_opening, label
 from scipy.ndimage.filters import gaussian_filter1d, median_filter
-from scipy.ndimage.morphology import grey_closing
+from scipy.ndimage import grey_closing
 from scipy.signal import find_peaks, peak_widths
 
 from .util import polyfit1d
@@ -456,11 +456,11 @@ def mark_orders(
     mask = np.ma.filled(mask, fill_value=False)
     # close gaps inbetween clusters
     struct = np.full(closing_shape, 1)
-    mask = morphology.binary_closing(mask, struct, border_value=1)
+    mask = binary_closing(mask, struct, border_value=1)
     # remove small lonely clusters
     struct = np.full(opening_shape, 1)
     # struct = morphology.generate_binary_structure(2, 1)
-    mask = morphology.binary_opening(mask, struct)
+    mask = binary_opening(mask, struct)
 
     # label clusters
     clusters, _ = label(mask)
