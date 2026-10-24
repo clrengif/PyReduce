@@ -18,7 +18,7 @@ from scipy import signal
 from scipy.constants import speed_of_light
 from scipy.interpolate import interp1d
 from scipy.ndimage.filters import gaussian_filter1d
-from scipy.ndimage.morphology import grey_closing
+from scipy.ndimage import grey_closing
 from scipy.optimize import curve_fit
 from tqdm import tqdm
 
@@ -68,7 +68,7 @@ class AlignmentPlot:
                     ref_image[order, first:last, self.GREEN] = (
                         10
                         * line["height"]
-                        * signal.gaussian(last - first, line["width"])
+                        * signal.windows.gaussian(last - first, line["width"])
                     )
         ref_image = np.clip(ref_image, 0, 1)
         ref_image[ref_image < 0.1] = 0
@@ -409,7 +409,7 @@ class WavelengthCalibration:
             last = int(min(line["xlast"], self.ncol))
             img[int(line["order"]) - min_order, first:last] = line[
                 "height"
-            ] * signal.gaussian(last - first, line["width"])
+            ] * signal.windows.gaussian(last - first, line["width"])
         return img
 
     def align_manual(self, obs, lines):

@@ -1,0 +1,18 @@
+# Build artifacts (cffi-compiled C extensions)
+*.so
+*.o
+pyreduce/clib/_slitfunc_bd.c
+pyreduce/clib/_slitfunc_2d.c
+*.egg-info/
+build/
+dist/
+__pycache__/
+
+# Environments
+.venv/
+
+# Test data and run output
+test/datasets/
+logs/
+cov.xml
+.coverage
